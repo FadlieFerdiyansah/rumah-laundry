@@ -21,20 +21,28 @@ class CreateTransaksisTable extends Migration
             $table->string('tgl_transaksi');
             $table->string('customer');
             $table->string('email_customer');
-            $table->enum('status_order',['Process','Done','Delivery'])->default('Process');
+            $table->enum('status_order',['Process','Done','Delivered'])->default('Process');
+            $table->string('payment_code', 121)->nullable();
+            $table->string('payment_method', 121);
+            $table->string('payment_url', 121)->nullable();
             $table->enum('status_payment',['Pending','Success']);
-            $table->integer('harga_id');
             $table->string('kg');
             $table->string('hari');
-            $table->string('harga');
-            $table->string('disc')->nullable();
-            $table->string('harga_akhir')->nullable();
+            $table->integer('harga');
+            $table->integer('disc')->nullable();
+            $table->integer('harga_akhir')->nullable();
             $table->string('tgl');
             $table->string('bulan');
             $table->string('tahun');
             $table->string('tgl_ambil')->nullable();
             $table->timestamps();
 
+        });
+
+        Schema::create('harga_transaksi', function (Blueprint $table) {
+            $table->foreignId('transaksi_id');
+            $table->foreignId('harga_id');
+            $table->primary(['transaksi_id','harga_id']);
         });
     }
 
@@ -46,5 +54,6 @@ class CreateTransaksisTable extends Migration
     public function down()
     {
         Schema::dropIfExists('transaksis');
+        Schema::dropIfExists('harga_transaksi');
     }
 }

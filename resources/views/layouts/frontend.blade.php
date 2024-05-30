@@ -7,9 +7,9 @@
 	<meta charset="utf-8" />
 	<title>@yield('title')</title>
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
-  <meta name="description" content="E-Laundy aplikasi laundry berbasis website">
-  <meta name="keywords" content="E-Laundry,Laundry">
-  <meta name="author" content="Andri Desmana">
+    <meta name="description" content="Harum Laundry aplikasi laundry berbasis website">
+    <meta name="keywords" content="Harum Laundry,Laundry">
+    <meta name="author" content="Fadlie Ferdiyansah">
 
 	<!-- ================== BEGIN BASE CSS STYLE ================== -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -63,7 +63,7 @@
     <!-- begin #footer-copyright -->
     <div class="footer-copyright">
         <div class="container">
-            &copy; <?php echo date("Y") ?> Build With <i class="fa fa-heart" style="color:red"></i> - <a href="https://www.andridesmana.space" target="_blank" style="text-decoration:none">Andri Desmana</a>
+            &copy; <?php echo date("Y") ?> Build With <i class="fa fa-heart" style="color:red"></i> - <a href="#"style="text-decoration:none">Fadlie Ferdiyansah</a>
         </div>
     </div>
     <!-- end #footer-copyright -->

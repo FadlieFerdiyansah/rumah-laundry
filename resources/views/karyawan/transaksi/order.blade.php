@@ -15,7 +15,7 @@
 <div class="card">
     <div class="card-body">
         <h4 class="card-title">
-            <a href="{{url('add-order')}}" class="btn btn-primary">Tambah</a>
+            {{-- <a href="{{url('add-order')}}" class="btn btn-primary">Tambah</a> --}}
         </h4>
         <h6>Info : <code> Untuk Mengubah Status Order & Pembayaran Klik Pada Bagian 'Action' Masing-masing.</code></h6>
         <div class="table-responsive m-t-0">
@@ -44,21 +44,23 @@
                         <td>{{$item->customer}}</td>
                         <td>
                             @if ($item->status_order == 'Done')
-                                <span class="label label-success">Selesai</span>
-                            @elseif($item->status_order == 'Delivery')
-                                <span class="label label-primary">Diambil</span>
+                                <span class="label text-primary">Selesai</span>
+                            @elseif($item->status_order == 'Delivered')
+                                <span class="label text-success">Diambil</span>
                             @elseif($item->status_order == 'Process')
-                                <span class="label label-info">Diproses</span>
+                                <span class="label text-info">Diproses</span>
+                            @elseif($item->status_order == 'Pending')
+                                <span class="label text-warning">Pending</span>
                             @endif
                         </td>
                         <td>
                             @if ($item->status_payment == 'Success')
-                                <span class="label label-success">Lunas</span>
+                                <span class="label text-success">Lunas</span>
                             @elseif($item->status_payment == 'Pending')
-                                <span class="label label-info">Pending</span>
+                                <span class="label text-warning">Pending</span>
                             @endif
                         </td>
-                        <td>{{$item->price->jenis}}</td>
+                        <td>{{$item->prices()->pluck('jenis')->implode(',')}}</td>
                         <td>
                             {{Rupiah::getRupiah($item->harga_akhir)}}
                         </td>
@@ -73,7 +75,7 @@
                               @elseif($item->status_order == 'Done')
                                 <a class="btn btn-sm btn-info" style="color:white" data-id-update="{{$item->id}}" id="updateStatus">Diambil</a>
                                 <a href="{{url('invoice-kar', $item->id)}}" class="btn btn-sm btn-warning" style="color:white">Invoice</a>
-                              @elseif($item->status_order == 'Delivery')
+                              @elseif($item->status_order == 'Delivered')
                                 <a href="{{url('invoice-kar', $item->id)}}" class="btn btn-sm btn-warning" style="color:white">Invoice</a>
                               @endif
                             @endif

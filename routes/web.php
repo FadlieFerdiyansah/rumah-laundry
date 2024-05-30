@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Customer\PembayaranController;
 
 Route::get('/', 'FrontController@index');
 
@@ -107,5 +108,7 @@ Route::middleware('auth')->group(function () {
     // Profile
     Route::get('me','Customer\ProfileController@index');
     Route::put('me/{id}','Customer\ProfileController@updateProfile');
+
+    Route::post('bayar', [PembayaranController::class, 'bayar'])->name('bayar');
   });
 });

@@ -7,9 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
     <meta name="description" content="E-Laundy aplikasi laundry berbasis website">
-    <meta name="keywords" content="E-Laundry,Laundry">
-    <meta name="author" content="Andri Desmana">
-    <title>Forgot Password - E-Laundry</title>
+    <meta name="keywords" content="Harum Laundry,Laundry">
+    <meta name="author" content="Fadlie Ferdiyansah">
+    <title>Forgot Password - Harum Laundry</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
 
     <!-- BEGIN: Vendor CSS-->
@@ -57,7 +57,7 @@
                         <div class="card mb-0">
                             <div class="card-body">
                                 <a href="javascript:void(0);" class="brand-logo">
-                                    <h2 class="brand-text text-primary ml-1">E-Laundry</h2>
+                                    <h2 class="brand-text text-primary ml-1">Harum Laundry</h2>
                                 </a>
                                 <h4 class="card-title mb-1">Lupa Password? 🔒</h4>
                                 <p class="card-text mb-2">Masukkan email Anda dan kami akan mengirimkan instruksi untuk mereset kata sandi Anda</p>

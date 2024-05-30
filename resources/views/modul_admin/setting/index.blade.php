@@ -281,7 +281,7 @@
 
                 {{-- Panel Notifications --}}
                 <div class="tab-pane fade" id="vertical-notif" role="tabpanel" aria-labelledby="pill-notif" aria-expanded="false">
-                  <div class="alert alert-danger">Baca Dokumentasi untuk mempermudah integrasi dan penggunaan Notifikasi pada halaman <b>Dokumentasi.</b></div>
+                  {{-- <div class="alert alert-danger">Baca Dokumentasi untuk mempermudah integrasi dan penggunaan Notifikasi pada halaman <b>Dokumentasi.</b></div> --}}
                   <form action="{{route('set-notif.update', Auth::id())}}" method="post">
                     @csrf
                     @method('PUT')

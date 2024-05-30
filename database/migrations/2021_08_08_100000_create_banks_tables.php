@@ -1,12 +1,5 @@
 <?php
 
-/*
- * This file is part of the IndoBank package.
- *
- * (c) Andri Desmana <andridesmana.pw | andridesmana29@gmail.com>
- *
- */
-
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;

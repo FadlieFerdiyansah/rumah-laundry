@@ -1,3 +1,6 @@
+@push('styles')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+@endpush
 @extends('layouts.backend')
 @section('title','Tambah Data Order')
 @section('content')
@@ -13,13 +16,13 @@
     <div class="card card-outline-info">
       <div class="card-header">
           <h4 class="card-title">Form Tambah Data Order
-              <a href="{{url('customers-create')}}" class="btn btn-danger">+ Customer Baru</a>
+              {{-- <a href="{{url('customers-create')}}" class="btn btn-danger">+ Customer Baru</a> --}}
           </h4>
       </div>
       <div class="card-body">
         {{-- Cek Apakah Customer ada --}}
         @if ($cek_customer != 0)
-          <form action="{{route('pelayanan.store')}}" method="POST">
+          <form id="orderForm" action="{{route('pelayanan.store')}}" method="POST">
             @csrf
             <div class="form-body">
               <div class="row p-t-20">
@@ -85,12 +88,12 @@
                 <div class="col-md-3">
                   <div class="form-group has-success">
                       <label class="control-label">Jenis Pembayaran</label>
-                      <select class="form-control custom-select @error('jenis_pembayaran') is-invalid @enderror" name="jenis_pembayaran" >
+                      <select class="form-control custom-select @error('payment_method') is-invalid @enderror" name="payment_method" >
                         <option value="">-- Pilih Jenis Pembayaran --</option>
-                        <option value="Tunai" {{old('jenis_pembayaran' == 'Tunai' ? 'selected' : '')}} >Tunai</option>
-                        <option value="Transfer" {{old('jenis_pembayaran' == 'Transfer' ? 'selected' : '')}}>Transfer</option>
+                        <option value="Tunai" {{old('payment_method' == 'Tunai' ? 'selected' : '')}} >Tunai</option>
+                        <option value="Transfer" {{old('payment_method' == 'Transfer' ? 'selected' : '')}}>Transfer</option>
                       </select>
-                      @error('jenis_pembayaran')
+                      @error('payment_method')
                         <span class="invalid-feedback text-danger" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -98,27 +101,45 @@
                   </div>
                 </div>
 
-                <div class="col-md-3">
-                  <div class="orm-group has-success">
-                      <label class="control-label">Pilih Pakaian</label>
-                      <select id="id" name="harga_id" class="form-control select2 @error('harga_id') is-invalid @enderror" >
-                          <option value="">-- Jenis Pakaian --</option>
-                          @foreach($jenisPakaian as $jenis)
-                            <option value="{{$jenis->id}}" {{old('harga_id') == $jenis->id ? 'selected' : '' }} >{{$jenis->jenis}}</option>
-                          @endforeach
-                      </select>
-                      @error('harga_id')
-                        <span class="invalid-feedback text-danger" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                      @enderror
+                <div id="inputContainer">
+                  <div class="col-md-12 mb-3">
+                      <div class="form-group has-success">
+                          <label class="control-label">Pilih Pakaian</label>
+                          <div class="input-group">
+                              <select name="harga_ids[]" class="form-control harga-select">
+                                  <option value="">-- Jenis Pakaian --</option>
+                                  @foreach($jenisPakaian as $jenis)
+                                      <option value="{{$jenis->id}}" {{old('pakaian') == $jenis->id ? 'selected' : '' }}>{{$jenis->jenis}}</option>
+                                  @endforeach
+                              </select>
+                              &nbsp;<button type="button" class="btn btn-primary btn-sm addButton">+</button>
+                              &nbsp;<button type="button" class="btn btn-danger btn-sm removeButton">x</button>
+                          </div>
+                          {{-- @error('pakaian')
+                              <span class="invalid-feedback text-danger" role="alert">
+                                  <strong>{{ $message }}</strong>
+                              </span>
+                          @enderror --}}
+                      </div>
                   </div>
-                </div>
+              </div>
+              <div class="col-md-2">
+                  <div class="form-group has-success">
+                      <label class="control-label">Harga</label>
+                      <input type="text" id="total-harga" class="form-control" name="total_harga" autocomplete="off" readonly>
+                      {{-- @error('total_harga')
+                          <span class="invalid-feedback text-danger" role="alert">
+                              <strong>{{ $message }}</strong>
+                          </span>
+                      @enderror --}}
+                  </div>
+              </div>
+              
                 <div class="col-md-2">
-                    <span id="select-hari"></span>
-                </div>
-                <div class="col-md-2">
-                    <span id="select-harga"></span>
+                    <div class="form-group has-success">
+                      <label for="id" class="control-label">Estimasi Hari</label>
+                      <input type="number" id="hari" class="form-control" name="hari"/>
+                    </div>
                 </div>
                 <div class="col-md-2">
                   <div class="form-group has-success">
@@ -160,31 +181,101 @@
       </div>
     @endif
 @endsection
-@section('scripts')
-<script type="text/javascript">
-    // Filter Harga
-    $(document).ready(function() {
-       var id = $("#id").val();
-            $.get('{{ Url("listhari") }}',{'_token': $('meta[name=csrf-token]').attr('content'),id:id}, function(resp){
-            $("#select-hari").html(resp);
-            $.get('{{ Url("listharga") }}',{'_token': $('meta[name=csrf-token]').attr('content'),id:id}, function(resp){
-            $("#select-harga").html(resp);
-        });
-        });
+@push('scripts')
+<script>
+$(document).ready(function() {
+    var selectedIds = [];
+
+    // Function to handle change event for all select elements
+    $(document).on('change', '.harga-select', function() {
+        updateSelectedIds();
+        fetchAndCalculateTotalHarga();
     });
 
-    $(document).on('change', '#id', function (e) {
-      var id = $(this).val();
-      $.get('{{ Url("listhari") }}',{'_token': $('meta[name=csrf-token]').attr('content'),id:id}, function(resp){
-        $("#select-hari").html(resp);
-      });
-    });
+    // Function to add a new select input with options cloned from the first one
+    function addNewSelect() {
+        let inputContainer = document.getElementById('inputContainer');
+        let originalElement = inputContainer.querySelector('.col-md-12');
+        let newElement = originalElement.cloneNode(true);
 
-    $(document).on('change', '#id', function (e) {
-        var id = $(this).val();
-        $.get('{{ Url("listharga") }}',{'_token': $('meta[name=csrf-token]').attr('content'),id:id}, function(resp){
-            $("#select-harga").html(resp);
+        // Clear the selection in the new select element
+        let selectElement = newElement.querySelector('select');
+        selectElement.selectedIndex = -1;
+
+        // Remove existing event listener to avoid multiple bindings
+        let newAddButton = newElement.querySelector('button.addButton');
+        newAddButton.removeEventListener('click', addNewSelect);
+
+        // Append the new element to the container
+        inputContainer.appendChild(newElement);
+
+        // Update the add button event listener for the new element
+        newAddButton.addEventListener('click', addNewSelect);
+
+        // Add event listener for remove button
+        let newRemoveButton = newElement.querySelector('button.removeButton');
+        newRemoveButton.addEventListener('click', function() {
+            newElement.remove();
+            updateSelectedIds();
+            fetchAndCalculateTotalHarga();
         });
+    }
+
+    // Function to update the selected IDs array
+    function updateSelectedIds() {
+        selectedIds = [];
+        $('.harga-select').each(function() {
+            let id = $(this).val();
+            if (id) {
+                selectedIds.push(id);
+            }
+        });
+    }
+
+    // Function to fetch harga and calculate total
+    function fetchAndCalculateTotalHarga() {
+        if (selectedIds.length > 0) {
+            $.ajax({
+                url: '{{ url("listharga") }}',
+                method: 'GET',
+                data: {
+                    '_token': $('meta[name="csrf-token"]').attr('content'),
+                    'ids': selectedIds
+                },
+                success: function(resp) {
+                    let totalHarga = resp.total_harga;
+                    $('#total-harga').val(totalHarga);
+                }
+            });
+        } else {
+            $('#total-harga').val(0);
+        }
+    }
+
+    // Initial add button event listener
+    document.querySelector('button.addButton').addEventListener('click', addNewSelect);
+
+    // Initial remove button event listener
+    document.querySelector('button.removeButton').addEventListener('click', function() {
+        let element = this.closest('.col-md-12');
+        element.remove();
+        updateSelectedIds();
+        fetchAndCalculateTotalHarga();
     });
+});
+
+
+
+
+
 </script>
-@endsection
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('.js-example-basic-multiple').select2({
+      // theme: "classic"
+    });
+});
+</script>
+@endpush

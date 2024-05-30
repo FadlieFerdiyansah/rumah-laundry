@@ -62,11 +62,11 @@ Kalau ada pertanyaan bisa kontak aku di email ini <b>andridesmana29@outlook.com<
 
 ## Sponsors
 
-Support E-Laundry by becoming a sponsor on [Saweria](https://saweria.co/andes2912). Your logo will show up here with a link to your website.
+Support E-Laundry by becoming a sponsor on [Saweria](https://saweria.co/fadlie26). Your logo will show up here with a link to your website.
 
 ## Any Questions ?
 
-Please contact me on [Andri Desmana](mailto:andridesmana29@outlook.com?subject=[GitHub]%20Questesion%20Pap!Kos) or [Telegram](https://t.me/andridesmana)
+Please contact me on [Fadlie Ferdiyansah](mailto:fadlieferdiyansah26@outlook.com?subject=[GitHub]%20Questesion%20Pap!Kos) or [Telegram](https://t.me/fadlieferdiyansah)
 
 ## License
 

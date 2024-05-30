@@ -19,7 +19,7 @@
           <div class="card">
               <div class="card-body">
                   <h4 class="card-title"> Data Harga Laundry Per-Cabang
-                      <a class="btn btn-primary" style="color:white">Tambah</a>
+                      {{-- <a class="btn btn-primary" style="color:white">Tambah</a> --}}
                   </h4>
                   <div class="table-responsive m-t-0">
                       <table id="myTable" class="table display table-bordered table-striped">

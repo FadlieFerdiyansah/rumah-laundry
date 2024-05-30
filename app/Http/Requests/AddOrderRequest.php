@@ -27,10 +27,8 @@ class AddOrderRequest extends FormRequest
           'status_payment'    => 'required',
           'kg'                => 'required|regex:/^[0-9.]+$/|numeric',
           'hari'              => 'required',
-          'harga'             => 'required',
-          'jenis_pembayaran'  => 'required',
+          'payment_method'  => 'required',
           'disc'              => 'nullable|numeric',
-          'harga_id'          => 'required',
           'customer_id'       => 'required'
         ];
     }
@@ -42,10 +40,8 @@ class AddOrderRequest extends FormRequest
         'kg.required'               => 'Berat Pakaian tidak boleh kosong.',
         'kg.numeric'                => 'Berat Pakaian hanya mendukung angka.',
         'hari.required'             => 'Hari tidak boleh kosong.',
-        'harga.required'            => 'Harga tidak boleh kosong.',
-        'jenis_pembayaran.required' => 'Jenis Pembayaran wajib dipilih.',
+        'payment_method.required' => 'Jenis Pembayaran wajib dipilih.',
         'disc.numeric'              => 'Diskon hanya mendukung angka.',
-        'harga_id.required'         => 'Jenis Pakaian wajib dipilih.',
         'customer_id.required'      => 'Customer wajib dipilih.'
       ];
     }

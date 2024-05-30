@@ -29,9 +29,9 @@ class HomeController extends Controller
     {
         if(Auth::check()){
           if (Auth::user()->auth === "Admin") {
-              $masuk = transaksi::whereIN('status_order',['Process','Done','Delivery'])->count();
+              $masuk = transaksi::whereIN('status_order',['Process','Done','Delivered'])->count();
               $selesai = transaksi::where('status_order','Done')->count();
-              $diambil = transaksi::where('status_order','Delivery')->count();
+              $diambil = transaksi::where('status_order','Delivered')->count();
               $customer = User::where('auth','Customer')->get();
               $sudahbayar = transaksi::where('status_payment','Success')->count();
               $belumbayar = transaksi::where('status_payment','Pending')->count();
@@ -125,9 +125,9 @@ class HomeController extends Controller
                   ->  with('incomeDOld',$incomeDOld);
 
           } elseif(Auth::user()->auth === "Karyawan") {
-              $masuk = transaksi::whereIN('status_order',['Process','Done','Delivery'])->where('user_id',auth::user()->id)->count();
+              $masuk = transaksi::whereIN('status_order',['Process','Done','Delivered'])->where('user_id',auth::user()->id)->count();
               $selesai = transaksi::where('status_order','Done')->where('user_id',auth::user()->id)->count();
-              $diambil = transaksi::where('status_order','Delivery')->where('user_id',auth::user()->id)->count();
+              $diambil = transaksi::where('status_order','Delivered')->where('user_id',auth::user()->id)->count();
               $customer = User::where('karyawan_id',auth::user()->id)->get();
 
               $kgToday = transaksi::where('user_id',Auth::id())->where('tahun',date('Y'))

@@ -57,9 +57,9 @@
                         <span class="mt-1 ml-2" style="text-align: left"><a href=" {{route('password.request')}} ">Lupa Password ?</a></span>
                         <div class="login-footer">
                             <div class="divider">
-                                <div class="divider-text"><a href="/">E-Laundry</a></div>
+                                <div class="divider-text"><a href="/">Harum Laundry</a></div>
                             </div>
-                            <p style="font-size:10px;text-align:center">Build With <i class="feather icon-heart text-danger"></i> by <a href="https://andridesmana.space" target="_blank">Andri Desmana</a></p>
+                            <p style="font-size:10px;text-align:center">Build With <i class="feather icon-heart text-danger"></i> by <a href="">Fadlie Ferdiyansah</a></p>
                         </div>
                     </div>
                 </div>

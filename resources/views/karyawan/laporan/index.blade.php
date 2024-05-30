@@ -25,8 +25,8 @@
                         <tr>
                           <td>{{$no}}</td>
                           <td>{{namaCustomer($laporans->customer_id)}}</td>
-                          <td>{{$laporans->price->jenis}}</td>
-                          <td>{{$laporans->jenis_pembayaran}}</td>
+                          <td>{{$laporans->prices()->pluck('jenis')->implode(',')}}</td>
+                          <td>{{$laporans->payment_method}}</td>
                           <td>{{$laporans->status_payment}}</td>
                           <td>{{Rupiah::getRupiah($laporans->harga_akhir)}}</td>
                         </tr>

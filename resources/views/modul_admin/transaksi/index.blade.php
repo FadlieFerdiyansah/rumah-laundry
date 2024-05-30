@@ -41,13 +41,15 @@
                               <td>{{carbon\carbon::parse($item->tgl_transaksi)->format('d-m-y')}}</td>
                               <td>{{$item->customer}}</td>
                               <td>
-                                  @if ($item->status_order == 'Done')
-                                      <span class="label label-success">Selesai</span>
-                                  @elseif($item->status_order == 'Delivery')
-                                      <span class="label label-info">Sudah Diambil</span>
-                                  @elseif($item->status_order == 'Process')
-                                      <span class="label label-info">Sedang Proses</span>
-                                  @endif
+                                @if ($item->status_order == 'Done')
+                                    <span class="label text-primary">Selesai</span>
+                                @elseif($item->status_order == 'Delivered')
+                                    <span class="label text-success">Diambil</span>
+                                @elseif($item->status_order == 'Process')
+                                    <span class="label text-info">Diproses</span>
+                                @elseif($item->status_order == 'Pending')
+                                    <span class="label text-warning">Pending</span>
+                                @endif
                               </td>
                               <td>
                                   @if ($item->status_payment == 'Success')
@@ -56,7 +58,7 @@
                                       <span class="label label-info">Belum Dibayar</span>
                                   @endif
                               </td>
-                              <td>{{$item->price->jenis}}</td>
+                              <td>{{$item->prices()->pluck('jenis')->implode(',')}}</td>
                               <td>
                                 <p>{{Rupiah::getRupiah($item->harga_akhir)}}</p>
                               </td>

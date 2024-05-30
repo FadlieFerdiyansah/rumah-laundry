@@ -30,20 +30,22 @@ class PelayananController extends Controller
     // Proses simpan order
     public function store(AddOrderRequest $request)
     {
+      // info('store');
+      // return request()->all();
       try {
         DB::beginTransaction();
         $order = new transaksi();
         $order->invoice         = $request->invoice;
         $order->tgl_transaksi   = Carbon::now()->parse($order->tgl_transaksi)->format('d-m-Y');
         $order->status_payment  = $request->status_payment;
-        $order->harga_id        = $request->harga_id;
+        // $order->harga_id        = $request->harga_id;
         $order->customer_id     = $request->customer_id;
         $order->user_id         = Auth::user()->id;
         $order->customer        = namaCustomer($order->customer_id);
         $order->email_customer  = email_customer($order->customer_id);
         $order->hari            = $request->hari;
         $order->kg              = $request->kg;
-        $order->harga           = $request->harga;
+        $order->harga           = (int) str_replace('.', '', $request->total_harga);
         $order->disc            = $request->disc;
         $hitung                 = $order->kg * $order->harga;
         if ($request->disc != NULL) {
@@ -53,11 +55,12 @@ class PelayananController extends Controller
         } else {
           $order->harga_akhir    = $hitung;
         }
-        $order->jenis_pembayaran  = $request->jenis_pembayaran;
+        $order->payment_method  = $request->payment_method;
         $order->tgl               = Carbon::now()->day;
         $order->bulan             = Carbon::now()->month;
         $order->tahun             = Carbon::now()->year;
         $order->save();
+        $order->prices()->sync(request('harga_ids'));
 
         if ($order) {
           // Notification Telegram
@@ -104,8 +107,7 @@ class PelayananController extends Controller
     public function addorders()
     {
       $customer = User::where('karyawan_id',Auth::user()->id)->get();
-      $jenisPakaian = harga::where('user_id',Auth::id())->where('status','1')->get();
-
+      $jenisPakaian = harga::where('user_id',Auth::id())->where('status','1')->orderBy('jenis', 'asc')->get();
       $y = date('Y');
       $number = mt_rand(1000, 9999);
       // Nomor Form otomatis
@@ -117,26 +119,36 @@ class PelayananController extends Controller
       return view('karyawan.transaksi.addorder', compact('customer','newID','cek_harga','cek_customer','jenisPakaian'));
     }
 
-    // Filter List Harga
     public function listharga(Request $request)
     {
-       $list_harga = harga::select('id','harga')
-        ->where('user_id',Auth::user()->id)
-        ->where('id',$request->id)
-        ->get();
-        $select = '';
-        $select .= '
-                    <div class="form-group has-success">
-                    <label for="id" class="control-label">Harga</label>
-                    <select id="harga" class="form-control" name="harga" value="harga">
-                    ';
-                    foreach ($list_harga as $studi) {
-        $select .= '<option value="'.$studi->harga.'">'.'Rp. ' .number_format($studi->harga,0,",",".").'</option>';
-                    }'
-                    </select>
-                    </div>
-                    </div>';
-        return $select;
+      info('list harga');
+
+        // Validate the request to ensure 'id' is an array
+        $request->validate([
+            'ids' => 'required|array'
+        ]);
+    
+        // Fetch harga records based on the user_id and the array of IDs
+        $list_harga = harga::select('id', 'harga')
+            ->where('user_id', Auth::user()->id)
+            ->whereIn('id', $request->ids) // Use whereIn to handle multiple IDs
+            ->get();
+
+            info(json_encode($list_harga));
+    
+        // Initialize the total harga
+        $total_harga = 0;
+    
+        // Loop through the fetched harga records to calculate the total harga
+        foreach ($list_harga as $studi) {
+            $total_harga += $studi->harga;
+        }
+    
+        // Format the total harga
+        $formatted_total_harga = number_format($total_harga, 0, ",", ".");
+    
+        // Return the formatted total harga
+        return response()->json(['total_harga' => $formatted_total_harga]);
     }
 
     // Filter List Jumlah Hari
@@ -223,7 +235,7 @@ class PelayananController extends Controller
 
         } elseif ($transaksi->status_order == 'Done') {
           $transaksi->update([
-            'status_order' => 'Delivery'
+            'status_order' => 'Delivered'
           ]);
         }
       }
@@ -231,7 +243,7 @@ class PelayananController extends Controller
       if ($transaksi->status_payment == 'Success') {
           Session::flash('success', "Status Pembayaran Berhasil Diubah !");
       }
-      if($transaksi->status_order == 'Done' || $transaksi->status_order == 'Delivery') {
+      if($transaksi->status_order == 'Done' || $transaksi->status_order == 'Delivered') {
           Session::flash('success', "Status Laundry Berhasil Diubah !");
       }
     }
