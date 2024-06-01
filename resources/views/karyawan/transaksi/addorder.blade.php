@@ -90,8 +90,12 @@
                       <label class="control-label">Jenis Pembayaran</label>
                       <select class="form-control custom-select @error('payment_method') is-invalid @enderror" name="payment_method" >
                         <option value="">-- Pilih Jenis Pembayaran --</option>
-                        <option value="Tunai" {{old('payment_method' == 'Tunai' ? 'selected' : '')}} >Tunai</option>
-                        <option value="Transfer" {{old('payment_method' == 'Transfer' ? 'selected' : '')}}>Transfer</option>
+                        <option value="tunai" {{old('payment_method' == 'tunai' ? 'selected' : '')}} >Tunai</option>
+                        <option value="bank_bca" {{old('payment_method' == 'bank_bca' ? 'selected' : '')}}>Transfer Bank BCA</option>
+                        <option value="bank_mandiri" {{old('payment_method' == 'bank_mandiri' ? 'selected' : '')}}>Transfer Bank Mandiri</option>
+                        <option value="bank_bri" {{old('payment_method' == 'bank_bri' ? 'selected' : '')}}>Transfer Bank BRI</option>
+                        <option value="BC" {{old('payment_method' == 'BC' ? 'selected' : '')}}>BCA Virtual Account</option>
+                        <option value="M2" {{old('payment_method' == 'M2' ? 'selected' : '')}}>Mandiri Virtual Account</option>
                       </select>
                       @error('payment_method')
                         <span class="invalid-feedback text-danger" role="alert">

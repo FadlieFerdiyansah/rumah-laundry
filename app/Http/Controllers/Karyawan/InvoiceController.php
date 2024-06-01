@@ -15,14 +15,17 @@ class InvoiceController extends Controller
       $invoice = transaksi::with('price')
       ->where('user_id',Auth::id())
       ->where('id',$request->id)
-      ->get();
+      ->first();
 
       $data = transaksi::with('customers','user')
       ->where('user_id',Auth::id())
       ->where('id',$request->id)
       ->first();
 
-      $bank = DataBank::get();
+      $bank = DataBank::where('nama_bank', $invoice->payment_method)->first();
+      if(!$bank){
+        $bank = null;
+      }
       return view('karyawan.laporan.invoice', compact('invoice','data','bank'));
     }
 
@@ -32,14 +35,17 @@ class InvoiceController extends Controller
        $invoice = transaksi::with('price')
       ->where('user_id',Auth::id())
       ->where('id',$request->id)
-      ->get();
+      ->first();
 
       $data = transaksi::with('customers','user')
       ->where('user_id',Auth::id())
       ->where('id',$request->id)
       ->first();
 
-      $bank = DataBank::get();
+      $bank = DataBank::where('nama_bank', $invoice->payment_method)->first();
+      if(!$bank){
+        $bank = null;
+      }
 
       $pdf = PDF::loadView('karyawan.laporan.cetak', compact('invoice','data','bank'))->setPaper('a4', 'landscape');
       return $pdf->stream();

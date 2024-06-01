@@ -81,8 +81,9 @@
 								<th>#</th>
 								<th>No Resi</th>
 								<th>TGL Transaksi</th>
+								<th>Metode Pembayaran</th>
+								<th>Status Pembayaran</th>
 								<th>Status Pesanan</th>
-								<th>Pembayaran</th>
 								<th>Jenis</th>
 								<th>Berat</th>
 								<th>Total</th>
@@ -96,6 +97,12 @@
 								<td> {{$transaksis->invoice}} </td>
 								<td> {{$transaksis->tgl_transaksi}} </td>
 								<td>
+									{{ $transaksis->payment_method }}
+								</td>
+								<td> <span
+										class="font-weight-bold text-{{$transaksis->status_payment == 'Pending'? 'warning' : 'success'}}">{{$transaksis->status_payment}}</span>
+								</td>
+								<td>
 									@if ($transaksis->status_order == 'Done')
 									<span class="label text-primary">Selesai</span>
 									@elseif($transaksis->status_order == 'Delivered')
@@ -106,16 +113,67 @@
 									<span class="label text-warning">Pending</span>
 									@endif
 								</td>
-								<td> <span
-										class="font-weight-bold text-{{$transaksis->status_payment == 'Pending'? 'warning' : 'success'}}">{{$transaksis->status_payment}}</span>
-								</td>
 								<td> {{$transaksis->prices()->pluck('jenis')->implode(',')}} </td>
 								<td> {{$transaksis->kg}} kg </td>
 								<td> {{Rupiah::getRupiah($transaksis->harga_akhir)}} </td>
 								<td>
-									@if ($transaksis->payment_url)
-									<a href="{{ $transaksis->payment_url }}" target="_blank" class="btn btn-sm btn-info">Bayar</a>
-									@else
+									@if (in_array($transaksis->payment_code, ['BC','M2']) && $transaksis->payment_url)
+										<a href="{{ $transaksis->payment_url }}" target="_blank" class="btn btn-sm btn-info">Bayar</a>
+									@elseif(in_array($transaksis->payment_code, ['bank_bca','bank_mandiri', 'bank_bri']))
+										<a href="" data-toggle="modal"  data-target="#infobank_{{ $transaksis->invoice }}" class="btn btn-sm btn-info">Bayar</a>
+										<div class="modal fade text-left" id="infobank_{{ $transaksis->invoice }}" tabindex="-1" role="dialog" aria-labelledby="infobank" aria-hidden="true">
+											<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h4 class="modal-title">Pembayaran</h4>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<h5 class="text-center mb-4"><strong>Informasi Bank Transfer</strong></h5>
+														<p>Untuk melakukan pembayaran melalui transfer bank, silakan gunakan informasi berikut:</p>
+														<table class="table table-borderless">
+															<tbody>
+																<tr>
+																	<td><strong>Nama Bank:</strong></td>
+																	<td>{{ $transaksis->bank($transaksis->payment_method)->nama_bank }}</td>
+																</tr>
+																<tr>
+																	<td><strong>Nama Rekening:</strong></td>
+																	<td>{{ $transaksis->bank($transaksis->payment_method)->nama_pemilik }}</td>
+																</tr>
+																<tr>
+																	<td><strong>Nomor Rekening:</strong></td>
+																	<td>{{ $transaksis->bank($transaksis->payment_method)->no_rekening }}</td>
+																</tr>
+																<tr>
+																	<td><strong>Berita Acara:</strong></td>
+																	<td>[{{ $transaksis->customers->name }}] - [{{ $transaksis->invoice }}]</td>
+																</tr>
+															</tbody>
+														</table>
+														<p>Pastikan Anda mencantumkan berita acara dengan format yang benar agar pembayaran Anda dapat segera diproses. Jika ada pertanyaan, silakan hubungi tim dukungan kami melalui:</p>
+														<div class="d-flex flex-column align-items-center">
+															<a href="https://api.whatsapp.com/send?phone=6281234567890" target="_blank" class="btn btn-outline-success w-100 mb-2">
+																<i class="fa fa-whatsapp"></i> WhatsApp: {{ $setting->whatsapp }}
+															</a>
+															<a href="tel:{{ $setting->no_telp }}" class="btn btn-outline-primary w-100 mb-2">
+																<i class="fa fa-phone"></i> Telepon: {{ $setting->no_telp }}
+															</a>
+															<a href="{{ $setting->facebook }}" target="_blank" class="btn btn-outline-info w-100 mb-2">
+																<i class="fa fa-facebook"></i> Facebook
+															</a>
+															<a href="mailto:{{ $setting->email }}" class="btn btn-outline-secondary w-100 mb-2">
+																<i class="fa fa-envelope"></i> Email: {{ $setting->email }}
+															</a>
+														</div>
+													</div>
+													
+												</div>
+											</div>
+										</div>
+									@elseif(in_array($transaksis->payment_code, ['BC','M2']))
 										<a href="" data-toggle="modal" data-invoice="{{ $transaksis->invoice }}" data-harga="{{ Rupiah::getRupiah($transaksis->harga_akhir) }}" data-target="#bayar" class="btn btn-sm btn-info">Bayar</a>
 									@endif
 								</td>
@@ -132,13 +190,6 @@
 
 @endsection
 @section('scripts')
-<script>
-	@if (count($errors) > 0)
-	  $(function() {
-		$('#bayar').modal('show');
-	  });
-	@endif
-  </script>
 <script type="text/javascript">
 	// DATATABLE
 $(document).ready(function() {

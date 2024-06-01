@@ -41,7 +41,7 @@
           <form action="{{route('setting.bank')}}" method="POST">
             @csrf
             <div class="modal-body">
-                <label for="Nama Bank">Nama Bank/E-Wallet</label>
+                <label for="Nama Bank">Nama Bank</label>
                 @php
                     $bank = App\Models\Bank::get();
                 @endphp

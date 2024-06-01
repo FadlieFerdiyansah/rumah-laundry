@@ -48,14 +48,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($invoice as $item)
                                 <tr>
                                     <td class="text-center">1</td>
-                                    <td>{{$item->prices()->pluck('jenis')->implode(',')}}</td>
-                                    <td class="text-right">{{$item->kg}} / kg</td>
-                                    <td class="text-right">{{Rupiah::getRupiah($item->harga)}} /kg</td>
+                                    <td>{{$invoice->prices()->pluck('jenis')->implode(',')}}</td>
+                                    <td class="text-right">{{$invoice->kg}} / kg</td>
+                                    <td class="text-right">{{Rupiah::getRupiah($invoice->harga)}} /kg</td>
                                     <td class="text-right">
-                                        <input type="hidden" value="{{$hitung = $item->kg * $item->harga}}">
+                                        <input type="hidden" value="{{$hitung = $invoice->kg * $invoice->harga}}">
                                         <p>{{Rupiah::getRupiah($hitung)}}</p>
                                     </td>
                                 </tr>
@@ -67,27 +66,28 @@
                 <div class="pull-left m-t-10">
                     <h6 style="font-weight:bold">Metode Pembayaran :</h6>
                     <ol>
-                      @foreach ($bank as $banks)
-                        <li style="color: white"> {{$banks->nama_bank}} <br> {{$banks->no_rekening}} a/n {{$banks->nama_pemilik}}</li>
-                      @endforeach
+                      @if ($invoice->payment_code == 'tunai')
+                      <li style="color: white"> Tunai</li>
+                      @else
+                        <li style="color: white"> {{$bank->nama_bank}} <br> {{$bank->no_rekening}} a/n {{$bank->nama_pemilik}}</li>
+                      @endif
                     </ol>
                 </div>
                 <div class="pull-right m-t-10 text-right">
                     <p>Total : {{Rupiah::getRupiah($hitung)}}</p>
-                    <p>Disc @if ($item->disc == "")
+                    <p>Disc @if ($invoice->disc == "")
                         (0 %)
                     @else
-                        ({{$item->disc}} %)
+                        ({{$invoice->disc}} %)
                     @endif :  </p>
                     <hr>
-                    <h3><b>Total Bayar :</b> {{Rupiah::getRupiah($item->harga_akhir)}}</h3>
+                    <h3><b>Total Bayar :</b> {{Rupiah::getRupiah($invoice->harga_akhir)}}</h3>
                 </div>
-                @endforeach
                 <div class="clearfix"></div>
                 <hr>
                 <div class="text-right">
                     <a href="{{url('pelayanan')}}" class="btn btn-outline btn-danger" style="color:white">Back</a>
-                    <a href="{{url('cetak-invoice/'.$item->id. '/print')}}" target="_blank" class="btn btn-success"><i class="fa fa-print"></i> Print</a>
+                    <a href="{{url('cetak-invoice/'.$invoice->id. '/print')}}" target="_blank" class="btn btn-success"><i class="fa fa-print"></i> Print</a>
                 </div>
             </div>
         </div>

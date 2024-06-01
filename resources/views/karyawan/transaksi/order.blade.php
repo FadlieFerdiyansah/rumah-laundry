@@ -26,8 +26,9 @@
                         <th>No Resi</th>
                         <th>TGL Transaksi</th>
                         <th>Customer</th>
+                        <th>Metode Pembayaran</th>
+                        <th>Status Pembayaran</th>
                         <th>Status Laundry</th>
-                        <th>Payment</th>
                         <th>Jenis</th>
                         <th>Total</th>
                         <th>Action</th>
@@ -42,6 +43,14 @@
                         <td style="font-weight:bold; font-color:black">{{$item->invoice}}</td>
                         <td>{{carbon\carbon::parse($item->tgl_transaksi)->format('d-m-y')}}</td>
                         <td>{{$item->customer}}</td>
+                        <td>{{ $item->payment_method }}</td>
+                        <td>
+                            @if ($item->status_payment == 'Success')
+                                <span class="label text-success">Lunas</span>
+                            @elseif($item->status_payment == 'Pending')
+                                <span class="label text-warning">Pending</span>
+                            @endif
+                        </td>
                         <td>
                             @if ($item->status_order == 'Done')
                                 <span class="label text-primary">Selesai</span>
@@ -50,13 +59,6 @@
                             @elseif($item->status_order == 'Process')
                                 <span class="label text-info">Diproses</span>
                             @elseif($item->status_order == 'Pending')
-                                <span class="label text-warning">Pending</span>
-                            @endif
-                        </td>
-                        <td>
-                            @if ($item->status_payment == 'Success')
-                                <span class="label text-success">Lunas</span>
-                            @elseif($item->status_payment == 'Pending')
                                 <span class="label text-warning">Pending</span>
                             @endif
                         </td>

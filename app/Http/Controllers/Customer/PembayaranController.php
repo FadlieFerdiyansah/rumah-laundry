@@ -125,11 +125,7 @@ class PembayaranController extends Controller
 				$transaksi = transaksi::where('invoice', $merchantOrderId)->first();
                 $transaksi->status_payment = 'Success';
 				$transaksi->status_order = 'Process';
-				if($transaksi->payment_method == 'M2'){
-				$transaksi->payment_method = 'Mandiri Virtual Account';
-				}else if($transaksi->payment_method == 'BC'){
-				$transaksi->payment_method = 'BCA Virtual Account';
-				}
+				$transaksi->payment_url = null;
                 $transaksi->save();
 			}
 			else

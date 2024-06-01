@@ -30,4 +30,9 @@ class transaksi extends Model
       return $this->belongsTo(User::class,'user_id','id');
     }
 
+    public function bank()
+    {
+      return DataBank::where('nama_bank', $this->payment_method)->first();
+    }
+
 }

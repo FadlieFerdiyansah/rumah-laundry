@@ -55,7 +55,24 @@ class PelayananController extends Controller
         } else {
           $order->harga_akhir    = $hitung;
         }
-        $order->payment_method  = $request->payment_method;
+        $order->payment_code  = $request->payment_method;
+        if($request->payment_method == 'M2'){
+          $bankName = 'Mandiri Virtual Account';
+          }else if($request->payment_method == 'BC'){
+          $bankName = 'BCA Virtual Account';
+          }else if($request->payment_method == 'tunai'){
+            $bankName = 'Tunai';
+          }else if($request->payment_method == 'bank_bca'){
+            $bankName = 'Transfer Bank BCA';
+          }else if($request->payment_method == 'bank_mandiri'){
+            $bankName = 'Transfer Bank Mandiri';
+          }else if($request->payment_method == 'bank_bri'){
+            $bankName = 'Transfer Bank BRI';
+          }
+        $order->payment_method  = $bankName;
+          if($request->status_payment == 'Success'){
+            $order->status_order = 'Process'; 
+          }
         $order->tgl               = Carbon::now()->day;
         $order->bulan             = Carbon::now()->month;
         $order->tahun             = Carbon::now()->year;
