@@ -113,7 +113,11 @@
 								<td> {{$transaksis->kg}} kg </td>
 								<td> {{Rupiah::getRupiah($transaksis->harga_akhir)}} </td>
 								<td>
-									<a href="" data-toggle="modal" data-invoice="{{ $transaksis->invoice }}" data-harga="{{ Rupiah::getRupiah($transaksis->harga_akhir) }}" data-target="#bayar" class="btn btn-sm btn-info">Bayar</a>
+									@if ($transaksis->payment_url)
+									<a href="{{ $transaksis->payment_url }}" target="_blank" class="btn btn-sm btn-info">Bayar</a>
+									@else
+										<a href="" data-toggle="modal" data-invoice="{{ $transaksis->invoice }}" data-harga="{{ Rupiah::getRupiah($transaksis->harga_akhir) }}" data-target="#bayar" class="btn btn-sm btn-info">Bayar</a>
+									@endif
 								</td>
 							</tr>
 							@endforeach

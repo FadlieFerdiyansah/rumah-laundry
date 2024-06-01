@@ -112,3 +112,4 @@ Route::middleware('auth')->group(function () {
     Route::post('bayar', [PembayaranController::class, 'bayar'])->name('bayar');
   });
 });
+Route::post('callback', [PembayaranController::class, 'callback'])->name('callback');

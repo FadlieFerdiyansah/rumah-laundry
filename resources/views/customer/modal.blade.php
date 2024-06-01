@@ -22,7 +22,13 @@
                   <label for="Nama Bank" class="mb-1">Nama Bank/E-Wallet</label>
                   <div class="form-group">
                     <select name="payment_method" class="form-control @error('payment_method') is-invalid @enderror">
-                        <option value="shopee">shopee</option>
+                      <option disabled selected>==== Pilih Pembayaran ====</option>  
+                      <option value="BC">BCA Virtual Account</option>
+                      <option value="M2">Mandiri Virtual Account</option>
+                      {{-- <option value="OL">OVO</option>
+                      <option value="SL">ShopeePay</option>
+                      <option value="DA">DANA</option> --}}
+                      {{-- <option value="shopee">shopee</option> --}}
                       {{-- @foreach ($bank as $item)
                         <option value="{{$item->nama_bank}}"> {{$item->nama_bank}} </option>
                       @endforeach --}}
