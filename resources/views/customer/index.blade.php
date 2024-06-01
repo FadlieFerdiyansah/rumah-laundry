@@ -131,7 +131,7 @@
 														</button>
 													</div>
 													<div class="modal-body">
-														<h5 class="text-center mb-4"><strong>Informasi Bank Transfer</strong></h5>
+														<h5 class="text-center mb-2"><strong>Informasi Bank Transfer</strong></h5>
 														<p>Untuk melakukan pembayaran melalui transfer bank, silakan gunakan informasi berikut:</p>
 														<table class="table table-borderless">
 															<tbody>
@@ -153,21 +153,22 @@
 																</tr>
 															</tbody>
 														</table>
-														<p>Pastikan Anda mencantumkan berita acara dengan format yang benar agar pembayaran Anda dapat segera diproses. Jika ada pertanyaan, silakan hubungi tim dukungan kami melalui:</p>
-														<div class="d-flex flex-column align-items-center">
-															<a href="https://api.whatsapp.com/send?phone=6281234567890" target="_blank" class="btn btn-outline-success w-100 mb-2">
-																<i class="fa fa-whatsapp"></i> WhatsApp: {{ $setting->whatsapp }}
+														<p>Pastikan berita acara sesuai agar pembayaran cepat diproses. Untuk pertanyaan, hubungi tim dukungan kami.</p>
+														<div class="d-flex flex-row align-items-center">
+															<a href="https://api.whatsapp.com/send?phone=6281234567890" target="_blank" class="btn btn-outline-success mr-2">
+																<i class="fa fa-whatsapp"></i>
 															</a>
-															<a href="tel:{{ $setting->no_telp }}" class="btn btn-outline-primary w-100 mb-2">
-																<i class="fa fa-phone"></i> Telepon: {{ $setting->no_telp }}
+															<a href="tel:{{ $setting->no_telp }}" class="btn btn-outline-primary mr-2">
+																<i class="fa fa-phone"></i>
 															</a>
-															<a href="{{ $setting->facebook }}" target="_blank" class="btn btn-outline-info w-100 mb-2">
-																<i class="fa fa-facebook"></i> Facebook
+															<a href="{{ $setting->facebook }}" target="_blank" class="btn btn-outline-info mr-2">
+																<i class="fa fa-facebook"></i>
 															</a>
-															<a href="mailto:{{ $setting->email }}" class="btn btn-outline-secondary w-100 mb-2">
-																<i class="fa fa-envelope"></i> Email: {{ $setting->email }}
+															<a href="mailto:{{ $setting->email }}" class="btn btn-outline-secondary">
+																<i class="fa fa-envelope"></i>
 															</a>
 														</div>
+														
 													</div>
 													
 												</div>
