@@ -121,12 +121,12 @@
 										<a href="{{ $transaksis->payment_url }}" target="_blank" class="btn btn-sm btn-info">Bayar</a>
 									@elseif(in_array($transaksis->payment_code, ['bank_bca','bank_mandiri', 'bank_bri']))
 									<a href="" data-toggle="modal"  data-target="#infobank_{{ $transaksis->invoice }}" class="btn btn-sm btn-info">Bayar</a>
-										@include('customer.modal-transfer-bank')
 									@elseif(in_array($transaksis->payment_code, ['BC','M2']))
 										<a href="" data-toggle="modal" data-invoice="{{ $transaksis->invoice }}" data-harga="{{ Rupiah::getRupiah($transaksis->harga_akhir) }}" data-target="#bayar" class="btn btn-sm btn-info">Bayar</a>
 									@endif
 								</td>
 							</tr>
+							@include('customer.modal-transfer-bank')
 							@endforeach
 						</tbody>
 					</table>
