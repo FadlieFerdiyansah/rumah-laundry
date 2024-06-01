@@ -197,7 +197,8 @@ class PelayananController extends Controller
       $transaksi = transaksi::find($request->id);
       if ($transaksi->status_payment == 'Pending') {
         $transaksi->update([
-          'status_payment' => 'Success'
+          'status_payment' => 'Success',
+          'status_order' => 'Process'
         ]);
       } elseif ($transaksi->status_payment == 'Success') {
         if ($transaksi->status_order == 'Process') {
