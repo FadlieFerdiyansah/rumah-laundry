@@ -1,4 +1,4 @@
-{{-- <div class="modal fade" id="infobank_{{ $transaksis->invoice }}" tabindex="-1" role="dialog" aria-labelledby="infobank" aria-hidden="true">
+<div class="modal fade" id="infobank" tabindex="-1" role="dialog" aria-labelledby="infobank" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -52,11 +52,4 @@
                 </div>
         </div>
     </div>
-</div> --}}
-
-<!-- Button trigger modal -->
-
-<!-- Button trigger modal -->
-
-  
-  <!-- Modal -->
+</div>
