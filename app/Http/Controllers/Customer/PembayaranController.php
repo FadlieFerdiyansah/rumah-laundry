@@ -107,20 +107,10 @@ class PembayaranController extends Controller
 	public function callback()
 	{
 		$apiKey = '730d0a8bbcf882b1409d8b8b8ae92b0f'; // API key anda
-		$merchantCode = isset($_POST['merchantCode']) ? $_POST['merchantCode'] : null; 
-		$amount = isset($_POST['amount']) ? $_POST['amount'] : null; 
-		$merchantOrderId = isset($_POST['merchantOrderId']) ? $_POST['merchantOrderId'] : null; 
-		$productDetail = isset($_POST['productDetail']) ? $_POST['productDetail'] : null; 
-		$additionalParam = isset($_POST['additionalParam']) ? $_POST['additionalParam'] : null; 
-		$paymentMethod = isset($_POST['paymentCode']) ? $_POST['paymentCode'] : null; 
-		$resultCode = isset($_POST['resultCode']) ? $_POST['resultCode'] : null; 
-		$merchantUserId = isset($_POST['merchantUserId']) ? $_POST['merchantUserId'] : null; 
-		$reference = isset($_POST['reference']) ? $_POST['reference'] : null; 
-		$signature = isset($_POST['signature']) ? $_POST['signature'] : null; 
-		$publisherOrderId = isset($_POST['publisherOrderId']) ? $_POST['publisherOrderId'] : null; 
-		$spUserHash = isset($_POST['spUserHash']) ? $_POST['spUserHash'] : null; 
-		$settlementDate = isset($_POST['settlementDate']) ? $_POST['settlementDate'] : null; 
-		$issuerCode = isset($_POST['issuerCode']) ? $_POST['issuerCode'] : null; 
+		$merchantCode = request('merchantCode') ? request('merchantCode') : null; 
+		$amount = request('amount') ? request('amount') : null; 
+		$merchantOrderId = request('merchantOrderId') ? request('merchantOrderId') : null; 
+		$signature = request('signature') ? request('signature') : null; 
 		
 		//log callback untuk debug 
 		// file_put_contents('callback.txt', "* Callback *\r\n", FILE_APPEND | LOCK_EX);
