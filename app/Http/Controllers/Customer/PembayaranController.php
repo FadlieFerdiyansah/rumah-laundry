@@ -31,8 +31,8 @@ class PembayaranController extends Controller
 		$additionalParam    = ''; // optional
 		$merchantUserInfo   = ''; // optional
 		$customerVaName     = $transaksi->customers->name; // display name on bank confirmation display
-		$callbackUrl        = 'https://harum-laundry.myhost.id/callback'; // url for callback
-		$returnUrl          = 'https://harum-laundry.myhost.id/home'; // url for redirect
+		$callbackUrl        = 'https://harum.myhost.id//callback'; // url for callback
+		$returnUrl          = 'https://harum.myhost.id//home'; // url for redirect
 		$expiryPeriod       = 1440; // set the expired time in minutes
 
 		// Customer Detail
