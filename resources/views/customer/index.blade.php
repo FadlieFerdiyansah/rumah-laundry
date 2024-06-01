@@ -75,7 +75,7 @@
 					Data Transaksi Kamu
 				</h4>
 				<div class="table-responsive m-t-0">
-					<table id="myTable" class="table display table-bordered table-striped">
+					<table id="myTable" class="table table-bordered table-striped">
 						<thead>
 							<tr>
 								<th>#</th>
@@ -120,31 +120,8 @@
 									@if (in_array($transaksis->payment_code, ['BC','M2']) && $transaksis->payment_url)
 										<a href="{{ $transaksis->payment_url }}" target="_blank" class="btn btn-sm btn-info">Bayar</a>
 									@elseif(in_array($transaksis->payment_code, ['bank_bca','bank_mandiri', 'bank_bri']))
-										<a href="" data-toggle="modal"  data-target="#infobank_{{ $transaksis->invoice }}" class="btn btn-sm btn-info">Bayar</a>
-										<div class="modal fade text-left" id="infobank_{{ $transaksis->invoice }}" tabindex="-1" role="dialog" aria-labelledby="bayar" aria-hidden="true">
-											<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h4 class="modal-title">Pembayaran </h4>
-														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<form action="{{route('bayar')}}" method="POST">
-													  @csrf
-													  <div class="modal-body">
-															ini test
-													  </div>
-													  <div class="modal-footer">
-														<button type="submit" class="btn btn-primary">Submit</button>
-														<button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
-													  </div>
-													</form>
-												</div>
-											</div>
-										  </div>
-										
-										
+									<a href="" data-toggle="modal"  data-target="#infobank_{{ $transaksis->invoice }}" class="btn btn-sm btn-info">Bayar</a>
+										@include('customer.modal-transfer-bank')
 									@elseif(in_array($transaksis->payment_code, ['BC','M2']))
 										<a href="" data-toggle="modal" data-invoice="{{ $transaksis->invoice }}" data-harga="{{ Rupiah::getRupiah($transaksis->harga_akhir) }}" data-target="#bayar" class="btn btn-sm btn-info">Bayar</a>
 									@endif
