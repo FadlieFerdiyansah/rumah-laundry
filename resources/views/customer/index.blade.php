@@ -133,7 +133,7 @@
 													<div class="modal-body">
 														<h5 class="text-center mb-2"><strong>Informasi Bank Transfer</strong></h5>
 														<p>Untuk melakukan pembayaran melalui transfer bank, silakan gunakan informasi berikut:</p>
-														<table class="table table-borderless">
+														{{-- <table class="table table-borderless">
 															<tbody>
 																<tr>
 																	<td><strong>Nama Bank:</strong></td>
@@ -152,7 +152,7 @@
 																	<td>[{{ $transaksis->customers->name }}] - [{{ $transaksis->invoice }}]</td>
 																</tr>
 															</tbody>
-														</table>
+														</table> --}}
 														<p>Pastikan berita acara sesuai agar pembayaran cepat diproses. Untuk pertanyaan, hubungi tim dukungan kami.</p>
 														<div class="d-flex flex-row align-items-center">
 															<a href="https://api.whatsapp.com/send?phone=6281234567890" target="_blank" class="btn btn-outline-success mr-2">
