@@ -125,7 +125,7 @@ class HomeController extends Controller
                   ->  with('incomeDOld',$incomeDOld);
 
           } elseif(Auth::user()->auth === "Karyawan") {
-              $masuk = transaksi::whereIN('status_order',['Process','Done','Delivered'])->where('user_id',auth::user()->id)->count();
+              $masuk = transaksi::whereIN('status_order',['Pending', 'Process','Done','Delivered'])->where('user_id',auth::user()->id)->count();
               $selesai = transaksi::where('status_order','Done')->where('user_id',auth::user()->id)->count();
               $diambil = transaksi::where('status_order','Delivered')->where('user_id',auth::user()->id)->count();
               $customer = User::where('karyawan_id',auth::user()->id)->get();
