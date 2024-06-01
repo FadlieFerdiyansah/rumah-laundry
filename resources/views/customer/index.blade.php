@@ -120,12 +120,14 @@
 									@if (in_array($transaksis->payment_code, ['BC','M2']) && $transaksis->payment_url)
 										<a href="{{ $transaksis->payment_url }}" target="_blank" class="btn btn-sm btn-info">Bayar</a>
 									@elseif(in_array($transaksis->payment_code, ['bank_bca','bank_mandiri', 'bank_bri']))
-									<a href="" data-toggle="modal" 
+										@if ($transaksis->status_payment != 'Success')
+										<a href="" data-toggle="modal" 
 										data-invoice="{{ $transaksis->invoice }}"
 										data-bank="{{ $transaksis->bank($transaksis->payment_method)->nama_bank }}"  
 										data-nama-pemilik="{{ $transaksis->bank($transaksis->payment_method)->nama_pemilik }}"
 										data-norekening="{{ $transaksis->bank($transaksis->payment_method)->no_rekening	 }}"
 										data-target="#infobank" class="btn btn-sm btn-info">Bayar</a>
+										@endif
 									@elseif(in_array($transaksis->payment_code, ['BC','M2']))
 										<a href="" data-toggle="modal" data-invoice="{{ $transaksis->invoice }}" data-harga="{{ Rupiah::getRupiah($transaksis->harga_akhir) }}" data-target="#bayar" class="btn btn-sm btn-info">Bayar</a>
 									@endif
