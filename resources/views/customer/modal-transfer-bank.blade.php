@@ -1,4 +1,4 @@
-<div class="modal fade" id="infobank_{{ $transaksis->invoice }}" tabindex="-1" role="dialog" aria-labelledby="infobank" aria-hidden="true">
+{{-- <div class="modal fade" id="infobank_{{ $transaksis->invoice }}" tabindex="-1" role="dialog" aria-labelledby="infobank" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -14,15 +14,15 @@
                     <tbody>
                         <tr>
                             <td><strong>Nama Bank:</strong></td>
-                            <td>{{ $transaksis->bank($transaksis->payment_method)->nama_bank }}</td>
+                            <td>{{ $transaksis->bank($transaksis->payment_method)?->nama_bank }}</td>
                         </tr>
                         <tr>
                             <td><strong>Nama Rekening:</strong></td>
-                            <td>{{ $transaksis->bank($transaksis->payment_method)->nama_pemilik }}</td>
+                            <td>{{ $transaksis->bank($transaksis->payment_method)?->nama_pemilik }}</td>
                         </tr>
                         <tr>
                             <td><strong>Nomor Rekening:</strong></td>
-                            <td>{{ $transaksis->bank($transaksis->payment_method)->no_rekening }}</td>
+                            <td>{{ $transaksis->bank($transaksis->payment_method)?->no_rekening }}</td>
                         </tr>
                         <tr>
                             <td><strong>Berita Acara:</strong></td>
@@ -52,4 +52,11 @@
                 </div>
         </div>
     </div>
-</div>
+</div> --}}
+
+<!-- Button trigger modal -->
+
+<!-- Button trigger modal -->
+
+  
+  <!-- Modal -->
