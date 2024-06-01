@@ -122,11 +122,8 @@ class PembayaranController extends Controller
 		
 			if($signature == $calcSignature)
 			{
-				//Callback tervalidasi
-				//Silahkan rubah status transaksi anda disini
-				// file_put_contents('callback.txt', "* Success *\r\n\r\n", FILE_APPEND | LOCK_EX);
 				$transaksi = transaksi::where('invoice', $merchantOrderId)->first();
-                $transaksi->status = 'Success';
+                $transaksi->status_payment = 'Success';
 				$transaksi->status_order = 'Process';
 				if($transaksi->payment_method == 'M2'){
 				$transaksi->payment_method = 'Mandiri Virtual Account';
