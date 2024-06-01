@@ -120,7 +120,12 @@
 									@if (in_array($transaksis->payment_code, ['BC','M2']) && $transaksis->payment_url)
 										<a href="{{ $transaksis->payment_url }}" target="_blank" class="btn btn-sm btn-info">Bayar</a>
 									@elseif(in_array($transaksis->payment_code, ['bank_bca','bank_mandiri', 'bank_bri']))
-									<a href="" data-toggle="modal"  data-target="#infobank" class="btn btn-sm btn-info">Bayar</a>
+									<a href="" data-toggle="modal" 
+										data-invoice="{{ $transaksis->invoice }}"
+										data-bank="{{ $transaksis->bank($transaksis->payment_method)->nama_bank }}"  
+										data-nama-pemilik="{{ $transaksis->bank($transaksis->payment_method)->nama_pemilik }}"
+										data-norekening="{{ $transaksis->bank($transaksis->payment_method)->no_rekening	 }}"
+										data-target="#infobank" class="btn btn-sm btn-info">Bayar</a>
 									@elseif(in_array($transaksis->payment_code, ['BC','M2']))
 										<a href="" data-toggle="modal" data-invoice="{{ $transaksis->invoice }}" data-harga="{{ Rupiah::getRupiah($transaksis->harga_akhir) }}" data-target="#bayar" class="btn btn-sm btn-info">Bayar</a>
 									@endif
@@ -180,6 +185,20 @@ $(document).ready(function() {
         var modal = $(this);
         modal.find('.modal-body #invoice').val(invoice);
         modal.find('.modal-body #harga').val(harga);
+    });
+
+	$('#infobank').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var invoice = button.data('invoice');
+        var bank = button.data('bank');
+        var namaPemilik = button.data('nama-pemilik');
+        var noRekening = button.data('norekening');
+
+        var modal = $(this);
+        modal.find('#bankName').text(bank);
+        modal.find('#accountName').text(namaPemilik);
+        modal.find('#accountNumber').text(noRekening);
+        modal.find('#invoice').text(invoice);
     });
 });
 </script>

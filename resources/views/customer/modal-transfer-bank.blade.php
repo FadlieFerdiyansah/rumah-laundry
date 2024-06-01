@@ -14,24 +14,24 @@
                     <tbody>
                         <tr>
                             <td><strong>Nama Bank:</strong></td>
-                            <td>{{ $transaksis->bank($transaksis->payment_method)?->nama_bank }}</td>
+                            <td id="bankName"></td>
                         </tr>
                         <tr>
                             <td><strong>Nama Rekening:</strong></td>
-                            <td>{{ $transaksis->bank($transaksis->payment_method)?->nama_pemilik }}</td>
+                            <td id="accountName"></td>
                         </tr>
                         <tr>
                             <td><strong>Nomor Rekening:</strong></td>
-                            <td>{{ $transaksis->bank($transaksis->payment_method)?->no_rekening }}</td>
+                            <td id="accountNumber"></td>
                         </tr>
                         <tr>
                             <td><strong>Berita Acara:</strong></td>
-                            <td>[{{ $transaksis->customers->name }}] - [{{ $transaksis->invoice }}]</td>
+                            <td>[{{ $transaksis->customers->name }}] - [<span id="invoice"></span>]</td>
                         </tr>
                     </tbody>
                 </table>
                 <p>Pastikan berita acara sesuai agar pembayaran cepat diproses. Untuk pertanyaan, hubungi tim dukungan kami.</p>
-                <div class="d-flex flex-row align-items-center">
+                <div class="d-flex flex-row align-items-center justify-content-center">
                     <a href="https://api.whatsapp.com/send?phone=6281234567890" target="_blank" class="btn btn-outline-success mr-2">
                         <i class="fa fa-whatsapp"></i>
                     </a>
@@ -47,9 +47,6 @@
                 </div>
                 
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
-                </div>
         </div>
     </div>
 </div>
