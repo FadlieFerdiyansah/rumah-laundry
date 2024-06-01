@@ -121,8 +121,8 @@
 										<a href="{{ $transaksis->payment_url }}" target="_blank" class="btn btn-sm btn-info">Bayar</a>
 									@elseif(in_array($transaksis->payment_code, ['bank_bca','bank_mandiri', 'bank_bri']))
 										<a href="" data-toggle="modal"  data-target="#infobank_{{ $transaksis->invoice }}" class="btn btn-sm btn-info">Bayar</a>
-										<div class="modal fade text-left" id="infobank_{{ $transaksis->invoice }}" tabindex="-1" role="dialog" aria-labelledby="infobank" aria-hidden="true">
-											<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+										<div class="modal fade" id="infobank_{{ $transaksis->invoice }}" tabindex="-1" role="dialog" aria-labelledby="infobank" aria-hidden="true">
+											<div class="modal-dialog" role="document">
 												<div class="modal-content">
 													<div class="modal-header">
 														<h4 class="modal-title">Pembayaran</h4>
