@@ -31,8 +31,8 @@ class PembayaranController extends Controller
 		$additionalParam    = ''; // optional
 		$merchantUserInfo   = ''; // optional
 		$customerVaName     = $transaksi->customers->name; // display name on bank confirmation display
-		$callbackUrl        = 'https://harum.myhost.id//callback'; // url for callback
-		$returnUrl          = 'https://harum.myhost.id//home'; // url for redirect
+		$callbackUrl        = 'https://harum.myhost.id/callback'; // url for callback
+		$returnUrl          = 'https://harum.myhost.id/home'; // url for redirect
 		$expiryPeriod       = 1440; // set the expired time in minutes
 
 		// Customer Detail
@@ -137,6 +137,12 @@ class PembayaranController extends Controller
 				// file_put_contents('callback.txt', "* Success *\r\n\r\n", FILE_APPEND | LOCK_EX);
 				$transaksi = transaksi::where('invoice', $merchantOrderId)->first();
                 $transaksi->status = 'Success';
+				$transaksi->status_order = 'Process';
+				if($transaksi->payment_method == 'M2'){
+				$transaksi->payment_method = 'Mandiri Virtual Account';
+				}else if($transaksi->payment_method == 'BC'){
+				$transaksi->payment_method = 'BCA Virtual Account';
+				}
                 $transaksi->save();
 			}
 			else
