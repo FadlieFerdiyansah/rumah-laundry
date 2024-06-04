@@ -130,7 +130,7 @@
               <div class="col-md-2">
                   <div class="form-group has-success">
                       <label class="control-label">Harga</label>
-                      <input type="text" id="total-harga" class="form-control" name="total_harga" autocomplete="off" readonly>
+                      <input type="text" id="total-harga" class="form-control" name="total_harga" autocomplete="off">
                       {{-- @error('total_harga')
                           <span class="invalid-feedback text-danger" role="alert">
                               <strong>{{ $message }}</strong>

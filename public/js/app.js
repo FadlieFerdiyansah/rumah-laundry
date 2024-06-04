@@ -1736,7 +1736,7 @@ var staticRenderFns = [function () {
       color: "black",
       "font-size": "15px"
     }
-  }, [_vm._v("\n                Order Online\n            ")])]);
+  }, [_vm._v("\n                Pembayaran Mudah\n            ")])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -1775,7 +1775,7 @@ var staticRenderFns = [function () {
       color: "black",
       "font-size": "15px"
     }
-  }, [_vm._v("\n                Bergaransi\n            ")])]);
+  }, [_vm._v("\n                Tepat Waktu\n            ")])]);
 }];
 render._withStripped = true;
 

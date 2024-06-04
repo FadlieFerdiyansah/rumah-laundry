@@ -65,13 +65,15 @@
             <div class="col-md-12">
                 <div class="pull-left m-t-10">
                     <h6 style="font-weight:bold">Metode Pembayaran :</h6>
-                    <ol>
+                    <ul>
                       @if ($invoice->payment_code == 'tunai')
                       <li style="color: white"> Tunai</li>
+                      @elseif(in_array($invoice->payment_code, ['BC', 'M2']))
+                      <li style="color: white"> {{ $invoice->payment_method }}</li>
                       @else
                         <li style="color: white"> {{$bank->nama_bank}} <br> {{$bank->no_rekening}} a/n {{$bank->nama_pemilik}}</li>
                       @endif
-                    </ol>
+                    </ul>
                 </div>
                 <div class="pull-right m-t-10 text-right">
                     <p>Total : {{Rupiah::getRupiah($hitung)}}</p>

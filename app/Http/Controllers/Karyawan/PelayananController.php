@@ -253,7 +253,8 @@ class PelayananController extends Controller
 
         } elseif ($transaksi->status_order == 'Done') {
           $transaksi->update([
-            'status_order' => 'Delivered'
+            'status_order' => 'Delivered',
+            'tgl_ambil' => date('Y-m-d H:i')
           ]);
         }
       }
