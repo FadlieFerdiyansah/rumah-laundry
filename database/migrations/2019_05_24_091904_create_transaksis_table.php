@@ -16,11 +16,9 @@ class CreateTransaksisTable extends Migration
         Schema::create('transaksis', function (Blueprint $table) {
             $table->id();
             $table->string('invoice');
-            $table->string('customer_id');
-            $table->string('user_id');
+            $table->unsignedInteger('customer_id');
+            $table->unsignedInteger('user_id');
             $table->string('tgl_transaksi');
-            $table->string('customer');
-            $table->string('email_customer');
             $table->enum('status_order',['Process','Done','Delivered'])->default('Process');
             $table->string('payment_code', 121)->nullable();
             $table->string('payment_method', 121);

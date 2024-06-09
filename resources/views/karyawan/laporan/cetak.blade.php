@@ -52,6 +52,21 @@
         p {
             margin: 0px;
         }
+
+        .signature-container {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .signature-container img {
+            width: 110px;
+            height: auto;
+        }
+
+        .signature-container p {
+            margin-top: 10px;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -75,7 +90,7 @@
                     <td colspan="3">
                         <h3 style="text-align:right">Detail Order Customer :</h3>
                         <p style="text-align:right">
-                            {{$data->customers->nama}}
+                            {{$data->customers->name}}
                             <br /> {{$data->customers->alamat}}
                             <br /> {{$data->customers->no_telp}}
                         </p> <br>
@@ -127,10 +142,16 @@
         <ol style="font-size: 12px">
             @if ($invoice->payment_code == 'tunai')
             <li style="color: black"> Tunai</li>
+            @elseif(in_array($invoice->payment_code, ['BC', 'M2']))
+            <li style="color: black"> {{ $invoice->payment_method }}</li>
             @else
             <li style="color: black"> {{$bank->nama_bank}} <br> {{$bank->no_rekening}} a/n {{$bank->nama_pemilik}}</li>
             @endif
         </ol>
+        <div class="signature-container">
+            {{-- <img src="{{ asset('images/stamp-lunas.png') }}" alt="Stamp Image"> --}}
+            {{-- <p>Paid</p> --}}
+        </div>
     </div>
 </body>
 

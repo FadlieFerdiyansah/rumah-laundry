@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use Rupiah;
+use App\Models\DataBank;
 use Illuminate\Http\Request;
 use App\Models\{transaksi,user};
-use Rupiah;
+use App\Http\Controllers\Controller;
 
 class TransaksiController extends Controller
 {
@@ -61,12 +62,17 @@ class TransaksiController extends Controller
     {
       $invoice = transaksi::with('price')
       ->where('invoice', $request->invoice)
-      ->orderBy('id','DESC')->get();
+      ->orderBy('id','DESC')->first();
 
       $dataInvoice = transaksi::with('customers','user')
       ->where('invoice', $request->invoice)
       ->first();
 
-      return view('modul_admin.transaksi.invoice', compact('invoice','dataInvoice'));
+      $bank = DataBank::where('nama_bank', $invoice->payment_method)->first();
+      if(!$bank){
+        $bank = null;
+      }
+
+      return view('modul_admin.transaksi.invoice', compact('invoice','dataInvoice', 'bank'));
     }
 }

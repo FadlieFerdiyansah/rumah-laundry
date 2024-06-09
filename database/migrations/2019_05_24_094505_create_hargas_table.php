@@ -18,7 +18,7 @@ class CreateHargasTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('jenis');
             $table->string('kg');
-            $table->string('harga');
+            $table->integer('harga');
             $table->string('status');
             $table->string('hari');
             $table->timestamps();

@@ -41,8 +41,6 @@ class PelayananController extends Controller
         // $order->harga_id        = $request->harga_id;
         $order->customer_id     = $request->customer_id;
         $order->user_id         = Auth::user()->id;
-        $order->customer        = namaCustomer($order->customer_id);
-        $order->email_customer  = email_customer($order->customer_id);
         $order->hari            = $request->hari;
         $order->kg              = $request->kg;
         $order->harga           = (int) str_replace('.', '', $request->total_harga);

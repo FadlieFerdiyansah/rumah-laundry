@@ -79,7 +79,7 @@
 						<thead>
 							<tr>
 								<th>#</th>
-								<th>No Resi</th>
+								<th>No Transaksi</th>
 								<th>TGL Transaksi</th>
 								<th>Metode Pembayaran</th>
 								<th>Status Pembayaran</th>

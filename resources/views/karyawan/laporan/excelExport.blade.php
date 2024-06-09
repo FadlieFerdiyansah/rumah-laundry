@@ -17,6 +17,7 @@
         <tr></tr>
         <tr>
             <th><b>No</b></th>
+            <th colspan="2"><b>Invoice</b></th>
             <th colspan="2"><b>Customer</b></th>
             <th colspan="2"><b>Jenis Laundry</b></th>
             <th colspan="2"><b>Status Pembayaran</b></th>
@@ -31,10 +32,11 @@
       @foreach ($data as $key => $items)
         <tr>
           <td> {{$key+1}}  </td>
-          <td colspan="2"> {{$items->customer}} </td>
+          <td colspan="2"> {{$items->invoice}} </td>
+          <td colspan="2"> {{$items->customers->name}} </td>
           <td colspan="2"> {{$items->prices()->pluck('jenis')->implode(',')}} </td>
           <td colspan="2"> {{$items->status_payment}} </td>
-          <td colspan="2"> {{$items->jenis_pembayaran}} </td>
+          <td colspan="2"> {{$items->payment_method}} </td>
           <td colspan="2">Rp {{number_format($items->harga_akhir)}} </td>
         </tr>
         @php

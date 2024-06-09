@@ -99,7 +99,7 @@
                               <td>{{$item->tgl_transaksi}}</td>
                               <td>{{$item->tgl_ambil ?? 'Belum Diambil'}}</td>
                               <td>{{$item->kg}} kg</td>
-                              <td>{{$item->jenis_pembayaran}}</td>
+                              <td>{{$item->payment_method}}</td>
                               <td>{{$item->status_order}}</td>
                               <td>{{Rupiah::getRupiah($item->harga_akhir)}}</td>
 

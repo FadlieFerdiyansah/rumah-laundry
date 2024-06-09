@@ -21,7 +21,7 @@
                     <address>
                         <h3>Detail Order Customer :</h3>
                         <p class="text-muted m-l-30">
-                            {{$data->customers->nama}}
+                            {{$data->customers->name}}
                             <br/> {{$data->customers->alamat}}
                             <br/> {{$data->customers->no_telp}}</p>
                         <p class="m-t-30"><b>Tanggal Masuk :</b> <i class="fa fa-calendar"></i> {{carbon\carbon::parse($data->tgl_transaksi)->format('d-m-Y')}}</p>

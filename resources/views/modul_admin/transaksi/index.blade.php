@@ -39,7 +39,7 @@
                           <tr>
                               <td>{{$key+1}}</td>
                               <td>{{carbon\carbon::parse($item->tgl_transaksi)->format('d-m-y')}}</td>
-                              <td>{{$item->customer}}</td>
+                              <td>{{$item->customers->name}}</td>
                               <td>
                                 @if ($item->status_order == 'Done')
                                     <span class="label text-primary">Selesai</span>

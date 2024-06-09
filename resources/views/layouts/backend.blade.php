@@ -196,11 +196,11 @@
                     @elseif(auth::user()->auth == "Karyawan")
                       <li class=" nav-item"><a href="#"><i class="feather icon-layers"></i><span class="menu-title" data-i18n="User">Data Transaksi</span></a>
                           <ul class="menu-content">
+                            <li class="nav-item {{ (request()->is('add-order')) ? 'active' : '' }}">
+                              <a href="{{url('add-order')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="List">Tambah Order</span></a>
+                            </li>
                               <li class="nav-item {{ (request()->is('pelayanan')) ? 'active' : '' }}">
                                 <a href="{{route('pelayanan.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="List">Order Masuk</span></a>
-                              </li>
-                              <li class="nav-item {{ (request()->is('add-order')) ? 'active' : '' }}">
-                                <a href="{{url('add-order')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="List">Tambah Order</span></a>
                               </li>
                               <li class="nav-item {{ (request()->is('customers')) ? 'active' : '' }}">
                                 <a href="{{url('customers')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="List">Data Customer</span></a>

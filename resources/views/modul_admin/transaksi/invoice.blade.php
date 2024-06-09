@@ -55,14 +55,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                          @foreach ($invoice as $key => $item)
                             <tr>
-                                <td class="text-center">{{$key+1}}</td>
-                                <td>{{$item->prices()->pluck('jenis')->implode(',')}}</td>
-                                <td class="text-right">{{$item->kg}} Kg</td>
-                                <td class="text-right">{{Rupiah::getRupiah($item->harga)}} /Kg</td>
+                                <td class="text-center">{{1}}</td>
+                                <td>{{$invoice->prices()->pluck('jenis')->implode(',')}}</td>
+                                <td class="text-right">{{$invoice->kg}} Kg</td>
+                                <td class="text-right">{{Rupiah::getRupiah($invoice->harga)}} /Kg</td>
                                 <td class="text-right">
-                                    <input type="hidden" value="{{$hitung = $item->kg * $item->harga}}">
+                                    <input type="hidden" value="{{$hitung = $invoice->kg * $invoice->harga}}">
                                     <p style="color:white">{{Rupiah::getRupiah($hitung)}}</p>
                                 </td>
                             </tr>
@@ -72,23 +71,27 @@
             </div>
             <div class="col-md-12">
                 <div class="pull-left m-t-10">
-                    <h6 class="text-right" style="font-weight:bold">Dengan Menandatangani/Menerima Nota Ini, Berarti Anda Setuju :</h6>
-                    <p>
-                        1. Isi Deskripsi <br>
-                        2. Isi Deskripsi
-                    </p>
+                    <h6 style="font-weight:bold">Metode Pembayaran :</h6>
+                    <ul>
+                      @if ($invoice->payment_code == 'tunai')
+                      <li style="color: white"> Tunai</li>
+                      @elseif(in_array($invoice->payment_code, ['BC', 'M2']))
+                      <li style="color: white"> {{ $invoice->payment_method }}</li>
+                      @else
+                        <li style="color: white"> {{$bank->nama_bank}} <br> {{$bank->no_rekening}} a/n {{$bank->nama_pemilik}}</li>
+                      @endif
+                    </ul>
                 </div>
                 <div class="pull-right m-t-10 text-right">
                     <p>Total : {{Rupiah::getRupiah($hitung)}}</p>
-                    <p>Disc @if ($item->disc == "")
+                    <p>Disc @if ($invoice->disc == "")
                         (0 %)
                     @else
-                        ({{$item->disc}} %)
-                    @endif :  <input type="hidden" value="{{$disc = ($hitung * $item->disc   ) / 100}}"> {{Rupiah::getRupiah($disc)}} </p>
+                        ({{$invoice->disc}} %)
+                    @endif :  <input type="hidden" value="{{$disc = ($hitung * $invoice->disc   ) / 100}}"> {{Rupiah::getRupiah($disc)}} </p>
                     <hr>
                     <h3><b>Total Bayar :</b> {{Rupiah::getRupiah($hitung - $disc)}}</h3>
                 </div>
-                @endforeach
                 <div class="clearfix"></div>
                 <hr>
                 <div class="text-right">
