@@ -35,7 +35,7 @@
       $.get('pencarian-laundry',{'_token': $('meta[name=csrf-token]').attr('content'),search_status:search_status}, function(resp){
             if (resp != 0) {
                   $(".modal_status").show();
-                  $("#customer").html(resp.customer);
+                  $("#customer").html(resp.customers.name);
                   $("#tgl_transaksi").html(resp.tgl_transaksi);
                   $("#status_order").html(resp.status_order);
             }else{
