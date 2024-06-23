@@ -10,8 +10,9 @@ use App\Http\Controllers\Controller;
 class PembayaranController extends Controller
 {
 	//
-	public function bayar()
+	public function bayar(Request $request)
 	{
+		// return request()->all();
 		$duitkuConfig = new \Duitku\Config("730d0a8bbcf882b1409d8b8b8ae92b0f", "DS19222");
 		// false for production mode
 		// true for sandbox mode
@@ -21,8 +22,21 @@ class PembayaranController extends Controller
 		// set log parameter (default : true)
 		$duitkuConfig->setDuitkuLogs(false);
 
+		if($request->payment_method == 'M2'){
+			$bankName = 'Mandiri Virtual Account';
+		}else if($request->payment_method == 'BC'){
+			$bankName = 'BCA Virtual Account';
+		}else if($request->payment_method == 'tunai'){
+			$bankName = 'Tunai';
+		}else if($request->payment_method == 'bank_bca'){
+			$bankName = 'Transfer Bank BCA';
+		}else if($request->payment_method == 'bank_mandiri'){
+			$bankName = 'Transfer Bank Mandiri';
+		}else if($request->payment_method == 'bank_bri'){
+			$bankName = 'Transfer Bank BRI';
+		}
 		$transaksi = transaksi::where('invoice', request('invoice'))->first();
-		$paymentMethod      = request('payment_method');
+		$paymentMethod      = $request->payment_method;
 		$paymentAmount      = $transaksi->harga_akhir; // Amount
 		$email              = $transaksi->email_customer; // your customer email
 		$phoneNumber        = $transaksi->customers->no_telp; // your customer phone number (optional)
@@ -97,7 +111,7 @@ class PembayaranController extends Controller
 			$responseDuitkuPop = \Duitku\Pop::createInvoice($params, $duitkuConfig);
 			$decode = json_decode($responseDuitkuPop);
 			header('Content-Type: application/json');
-			$transaksi->update(['payment_url' => $decode->paymentUrl, 'payment_method' => $paymentMethod]);
+			$transaksi->update(['payment_url' => $decode->paymentUrl, 'payment_method' => $bankName, 'payment_code' => $request->payment_method]);
 			return redirect($transaksi->payment_url);
 		} catch (Exception $e) {
 			echo $e->getMessage();

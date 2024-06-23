@@ -42,7 +42,7 @@
                         <td>{{$no}}</td>
                         <td style="font-weight:bold; font-color:black">{{$item->invoice}}</td>
                         <td>{{carbon\carbon::parse($item->tgl_transaksi)->format('d-m-y')}}</td>
-                        <td>{{$item->customer}}</td>
+                        <td>{{$item->customers->name}}</td>
                         <td>{{ $item->payment_method }}</td>
                         <td>
                             @if ($item->status_payment == 'Success')

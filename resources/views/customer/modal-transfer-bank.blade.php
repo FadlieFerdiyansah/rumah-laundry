@@ -26,7 +26,7 @@
                         </tr>
                         <tr>
                             <td><strong>Berita Acara:</strong></td>
-                            <td>[{{ $transaksis->customers->name }}] - [<span id="invoice"></span>]</td>
+                            <td>[{{ isset($transaksis) ? $transaksis->customers->name : '' }}] - [<span id="invoice"></span>]</td>
                         </tr>
                     </tbody>
                 </table>
