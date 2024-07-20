@@ -149,7 +149,9 @@
             @endif
         </ol>
         <div class="signature-container">
-            {{-- <img src="{{ asset('images/stamp-lunas.png') }}" alt="Stamp Image"> --}}
+            @if ($invoice->status_payment == 'Success')
+            <img src="{{ asset('images/stamp-lunas.png') }}" alt="Stamp Image">
+            @endif
             {{-- <p>Paid</p> --}}
         </div>
     </div>
