@@ -24,7 +24,7 @@ Laundry dibangun menggunakan [Laravel](http://laravel.com), the best existing PH
 * Run `php artisan queue:listen` for run queue
 
 Note : Aplikasi ini akan terus saya update.<br>
-Kalau ada pertanyaan bisa kontak aku di email ini <b>andridesmana29@outlook.com</b>
+Kalau ada pertanyaan bisa kontak aku di email ini <b>fadlieferdiyansah26@gmail.com</b>
 </p>
 
 ## Package
