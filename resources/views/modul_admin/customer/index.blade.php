@@ -18,7 +18,7 @@
                                 <th>Nama</th>
                                 <th>Alamat</th>
                                 <th>No Telpon</th>
-                                <th>Kelamin</th>
+                                <th>Point</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -31,11 +31,7 @@
                                 <td>{{$item->alamat}}</td>
                                 <td>{{$item->no_telp}}</td>
                                 <td>
-                                    @if ($item->kelamin == 'L')
-                                        <span class="label label-success">Laki-laki</span>
-                                    @else
-                                        <span class="label label-info">Perempuan</span>
-                                    @endif
+                                    {{  }}
                                 </td>
                                 <td>
                                   <a href="{{route('customer.show', $item->id)}}" class="btn btn-info btn-sm">Info</a>

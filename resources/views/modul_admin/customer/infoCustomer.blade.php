@@ -33,8 +33,8 @@
                     </dl>
 
                     <dl class="row">
-                        <dt class="col-sm-4">Kelamin Customer</dt>
-                        <dd class="col-sm-4">: {{$customer->kelamin == 'L' ? 'Laki-laki' : 'Perempuan'}}</dd>
+                        <dt class="col-sm-4">Point</dt>
+                        <dd class="col-sm-4">: {{$customer->point}}</dd>
                     </dl>
 
                 </div>
